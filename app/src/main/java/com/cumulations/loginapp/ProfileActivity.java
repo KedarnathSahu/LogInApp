@@ -124,10 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private void saveUserInformation() {
-
-
         String displayName = editText.getText().toString();
-
         if (displayName.isEmpty()) {
             editText.setError("Name required");
             editText.requestFocus();
@@ -163,9 +160,7 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageView.setImageBitmap(bitmap);
-
                 uploadImageToFirebaseStorage();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -175,7 +170,6 @@ public class ProfileActivity extends AppCompatActivity {
     private void uploadImageToFirebaseStorage() {
         StorageReference profileImageRef =
                 FirebaseStorage.getInstance().getReference("profilepics/" + System.currentTimeMillis() + ".jpg");
-
         if (uriProfileImage != null) {
             progressBar.setVisibility(View.VISIBLE);
             profileImageRef.putFile(uriProfileImage)
@@ -212,26 +206,20 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.menuLogout:
-
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, MainActivity.class));
-
                 break;
         }
-
         return true;
     }
 
@@ -241,5 +229,4 @@ public class ProfileActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
     }
-
 }
